@@ -1,0 +1,49 @@
+{% extends "base_admin.html" %}
+{% block title %}Gestión de Enfermedades - Panel de Administración{% endblock %}
+{% block content %}
+<div class="container my-4">
+  <h2 class="text-center mb-4">Gestión de Enfermedades, {{ user_name }}</h2>
+  
+  <div class="mb-3 text-end">
+    <a href="{{ url_for('agregar_enfermedad') }}" class="btn btn-success">Agregar Nueva Enfermedad</a>
+  </div>
+  
+  {% if enfermedades %}
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+          <tr>
+            <th>Nombre</th>
+            <th>Síntomas</th>
+            <th>Tratamiento</th>
+            <th>Prevención</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for e in enfermedades %}
+          <tr>
+            <td>{{ e[1] }}</td>
+            <td>{{ e[2] }}</td>
+            <td>{{ e[3] }}</td>
+            <td>{{ e[4] }}</td>
+            <td>
+              <a href="{{ url_for('editar_enfermedad', enfermedad_id=e[0]) }}" class="btn btn-warning btn-sm me-1">Editar</a>
+              <form action="{{ url_for('eliminar_enfermedad', enfermedad_id=e[0]) }}" method="post" style="display:inline;">
+                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que deseas eliminar esta enfermedad?');">Eliminar</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="alert alert-warning text-center">No hay enfermedades registradas.</div>
+  {% endif %}
+  
+  <div class="text-center mt-4">
+    <a href="{{ url_for('admin_panel') }}" class="btn btn-secondary">Volver al Panel de Administración</a>
+  </div>
+</div>
+{% endblock %}

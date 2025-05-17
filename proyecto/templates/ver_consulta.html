@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Detalle de Consulta{% endblock %}
+{% block content %}
+<div class="container my-4">
+  <h2 class="text-center mb-4">Detalle de Consulta</h2>
+  <div class="card mx-auto" style="max-width: 600px;">
+    <div class="card-header bg-info text-white">
+      Consulta #{{ registro[0] }}
+    </div>
+    <div class="card-body">
+      <p><strong>Consulta:</strong> {{ registro[1] }}</p>
+      <p><strong>Diagnóstico:</strong> {{ registro[2] }}</p>
+      <p><strong>Fecha:</strong> {{ registro[3] }}</p>
+    </div>
+  </div>
+  <div class="text-center mt-3">
+    <a href="{{ url_for('historial') }}" class="btn btn-primary">Volver al Historial</a>
+  </div>
+</div>
+{% endblock %}

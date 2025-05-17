@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Historial de Consultas - Chatbot Veterinario</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h2 {
+      text-align: center;
+      color: #007BFF;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #333;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #007BFF;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h2>Historial de Consultas</h2>
+  <p><strong>Usuario:</strong> {{ user_name if user_name else 'No disponible' }}</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Consulta</th>
+        <th>Respuesta</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for registro in registros %}
+      <tr>
+        <td>{{ registro[0].strftime('%Y-%m-%d %H:%M:%S') if registro[0] else 'Fecha no disponible' }}</td>
+        <td>{{ registro[1] }}</td>
+        <td>{{ registro[2] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
