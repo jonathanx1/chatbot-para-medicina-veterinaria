@@ -1,0 +1,57 @@
+{% extends "base_admin.html" %}
+{% block title %}Gestión de Usuarios{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">Usuarios</h2>
+    <a href="{{ url_for('admin_agregar_usuario') }}" class="btn btn-success">
+      <i class="bi bi-person-plus"></i> Agregar Usuario
+    </a>
+  </div>
+
+  <div class="table-responsive shadow-sm bg-white rounded">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Email</th>
+          <th scope="col">Rol</th>
+          <th scope="col" class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for u in usuarios %}
+        <tr>
+          <td>{{ u[1] }}</td>
+          <td>{{ u[2] }}</td>
+          <td class="text-capitalize">{{ u[3] }}</td>
+          <td class="text-center">
+            <a href="{{ url_for('admin_editar_usuario', usuario_id=u[0]) }}"
+               class="btn btn-sm btn-primary me-1">
+              <i class="bi bi-pencil-square"></i> Editar Usuario
+            </a>
+            <form action="{{ url_for('admin_eliminar_usuario', usuario_id=u[0]) }}"
+                  method="post" class="d-inline"
+                  onsubmit="return confirm('¿Eliminar usuario {{ u[1] }}?');">
+              <button type="submit" class="btn btn-sm btn-danger">
+                <i class="bi bi-trash"></i> Eliminar Usuario
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="5" class="text-center py-4">
+            No hay usuarios registrados.
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="text-center mt-3">
+    <a href="{{ url_for('admin_panel') }}" class="btn btn-secondary">Volver al Panel de Administración</a>
+  </div>
+</div>
+{% endblock %}
