@@ -1,0 +1,56 @@
+{% extends "base_admin.html" %}
+{% block title %}Agregar Enfermedad - Panel de Administración{% endblock %}
+{% block content %}
+<div class="container my-4">
+  <h2 class="text-center mb-4">Agregar Nueva Enfermedad</h2>
+  <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+    <div class="card-header bg-success text-white text-center">
+      Nueva Enfermedad
+    </div>
+    <div class="card-body">
+      <form action="{{ url_for('agregar_enfermedad') }}" method="post">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre:</label>
+          <input type="text" name="nombre" id="nombre"
+                 class="form-control {% if error_nombre %}is-invalid{% endif %}"
+                 placeholder="Nombre de la enfermedad"
+                 value="{{ request.form.get('nombre', '') }}"
+                 required>
+          {% if error_nombre %}
+            <div class="invalid-feedback">
+              {{ error_nombre }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          <label for="sintomas" class="form-label">Síntomas:</label>
+          <textarea name="sintomas" id="sintomas" rows="3" class="form-control" placeholder="Ej: fiebre, tos, secreción nasal" required>{{ request.form.get('sintomas', '') }}</textarea>
+        </div>
+        <div class="mb-3">
+          <label for="tratamiento" class="form-label">Tratamiento:</label>
+          <textarea name="tratamiento" id="tratamiento" rows="3" class="form-control" placeholder="Ej: suero, antibióticos" required>{{ request.form.get('tratamiento', '') }}</textarea>
+        </div>
+        <div class="mb-3">
+          <label for="prevencion" class="form-label">Prevención:</label>
+          <textarea name="prevencion" id="prevencion" rows="3" class="form-control" placeholder="Ej: vacunación" required>{{ request.form.get('prevencion', '') }}</textarea>
+        </div>
+        <div class="form-floating mb-3">
+          <div class="mb-3">
+            <label for="especie_id" class="form-label">Especie:</label>
+            <select name="especie_id" id="especie_id" class="form-select" required>
+              <option value="">Seleccione una especie</option>
+              <option value="1" {% if request.form.get('especie_id') == '1' %}selected{% endif %}>Perro</option>
+              <option value="2" {% if request.form.get('especie_id') == '2' %}selected{% endif %}>Gato</option>
+            </select>
+          </div>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-success">Agregar Enfermedad</button>
+          <a href="{{ url_for('admin_enfermedades') }}" class="btn btn-secondary ms-2">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

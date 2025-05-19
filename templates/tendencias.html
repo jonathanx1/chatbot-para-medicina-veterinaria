@@ -1,0 +1,43 @@
+{% extends "base_admin.html" %}
+{% block title %}Tendencias - Chatbot Veterinario{% endblock %}
+{% block content %}
+<div class="container">
+  <h2 class="text-center mb-4">Tendencias de Enfermedades, {{ user_name }}</h2>
+  <div class="d-flex justify-content-between mb-3">
+    <a href="{{ url_for('admin_panel') }}" class="btn btn-secondary">Volver al Panel de Administración</a>
+    <a href="{{ url_for('logout') }}" class="btn btn-danger">Cerrar sesión</a>
+  </div>
+  <hr>
+  {% if tendencias %}
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th>Enfermedad</th>
+            <th>Consultas</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for t in tendencias %}
+          <tr>
+            <td>{{ t[0] }}</td>
+            <td>{{ t[1] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="alert alert-warning text-center">No se encontraron tendencias.</div>
+  {% endif %}
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="mt-3">
+        {% for message in messages %}
+          <div class="alert alert-info">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+</div>
+{% endblock %}
