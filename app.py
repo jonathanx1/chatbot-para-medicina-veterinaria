@@ -13,6 +13,8 @@ from cargar_sintomas import cargar_diccionario_sinonimos
 from typing import List, Tuple
 from pymysql.err import MySQLError
 import logging
+from dotenv import load_dotenv
+load_dotenv()   # carga .env en local y env vars en producción
 
 
 app = Flask(__name__)
